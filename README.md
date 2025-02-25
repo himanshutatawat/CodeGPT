@@ -24,7 +24,59 @@ pip install requests gradio
 ```
 
 ### 2️⃣ Run CodeGPT API  
-Ensure your **CodeGPT API** is running at `http://localhost:11434/api/generate`.  
+Ensure your **CodeGPT API** is running at `http://localhost:11434/api/generate`. 
+
+## Prerequisites  
+- **Ollama** installed ([Download here](https://ollama.com/download))  
+- **Python 3.8+** installed (for API testing)  
+
+## Installation  
+
+### 2.1 Install Ollama  
+Run the following command to install Ollama:  
+
+```sh
+curl -fsSL https://ollama.com/install.sh | sh
+For Windows, download and install from https://ollama.com/download.
+```
+
+### 2.2 Download CodeLlama Model
+Pull a CodeLlama model (e.g., 7B version):
+
+```sh
+
+ollama pull codellama:7b
+```
+### 2.3 Create a Custom Model (modelfile)
+Create a new file named modelfile and add:
+
+```txt
+
+FROM codellama
+
+
+## Set the Temperature
+PARAMETER temperature 1
+
+## Set the system prompt
+SYSTEM """
+You are a code teaching assistant named CodeGPT, created by HimanshU. Answer all the coding-related questions."""
+```
+### 2.4 Build the Custom Model
+Run the following command:
+
+```sh
+
+ollama create codegpt -f modelfile
+```
+### 2.5 Start the API Server
+Run:
+
+```sh
+
+ollama serve
+```
+This will start the API at http://localhost:11434/api/generate.
 
 ## Usage  
 
